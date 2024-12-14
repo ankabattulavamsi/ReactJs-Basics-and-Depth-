@@ -15,7 +15,7 @@ const OnlineDel = (props) => {
     aggregatedDiscountInfoV3,
   } = data.info;
   return (
-    <div class="py-4">
+    <div class="p-2">
       <div class="relative w-60 ">
         <img
           src={cloudImageId + cloudinaryImageId}
@@ -29,7 +29,7 @@ const OnlineDel = (props) => {
           </h1>
         </div>
       </div>
-      <div class="px-2 pb-2 bg-white shadow-lg rounded-lg w-60">
+      <div class="pb-2 p-2 bg-white shadow-lg rounded-lg w-60">
         <h1 class="text-lg font-bold my-2">{name.slice(0, 20)}</h1>
         <div class="flex flex-cols items-center">
           <div class=" bg-[#ff5200] rounded-full">

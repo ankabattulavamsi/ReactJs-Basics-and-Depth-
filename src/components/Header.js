@@ -2,6 +2,7 @@ import React from "react";
 import { LogoUrl } from "../utils/constants";
 import LocationTracker from "./LocationComponent";
 import { ImSearch } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -22,9 +23,15 @@ const Header = () => {
       </div>
 
       <div class="flex  space-x-8">
-        <p>Home</p>
-        <p>About Us</p>
-        <p>Contact Us</p>
+        <Link to="/">
+          <p>Home</p>
+        </Link>
+        <Link to="/about">
+          <p>About Us</p>
+        </Link>
+        <Link to="/contact">
+          <p>Contact Us</p>
+        </Link>
         <p>Cart</p>
         <p>Sign In</p>
       </div>

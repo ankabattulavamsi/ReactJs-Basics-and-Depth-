@@ -3,6 +3,7 @@ import CuisinesCard from "./CuisinesCard";
 import TopRestInLocal from "./TopRestInLocal";
 import OnlineDel from "./OnlineDel";
 import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [cuisinesData, setCuisinesData] = useState([]);
@@ -112,9 +113,11 @@ const Body = () => {
           </div>
         </div>
 
-        <div class="flex flex-wrap space-x-4 ">
+        <div class="flex flex-wrap">
           {filteredRestData?.map((rest) => (
-            <OnlineDel restaurants={rest} key={rest.id} />
+            <Link key={rest.info.id} to={"/restaurant/" + rest.info.id}>
+              <OnlineDel restaurants={rest} />
+            </Link>
           ))}
         </div>
       </div>

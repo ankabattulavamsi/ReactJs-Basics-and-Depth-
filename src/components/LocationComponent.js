@@ -31,9 +31,6 @@ const LocationTracker = () => {
               data.address?.neighbourhood ||
               "Unknown Area",
           });
-
-          console.log(latitude);
-          console.log(longitude);
         } catch (err) {
           setError("Could not fetch location details");
         }
