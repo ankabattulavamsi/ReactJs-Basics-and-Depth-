@@ -4,16 +4,20 @@ import RestaurantRateCard from "./RestaurantRateCard";
 import RestOffersCarousel from "./RestOffersCarousel";
 import { restDetailUrl } from "../utils/constants";
 import { GiCottonFlower } from "react-icons/gi";
+import TopPicks from "./TopPicks";
 
 const RestaurantDetails = () => {
   const [restaurant, setRestaurant] = useState("");
   const [restaurantRateCard, setRestaurantCard] = useState("");
   const [offersCarousel, setOffersCarousel] = useState([]);
   const [topPicks, setTopPicks] = useState("");
+  const [recommended, setRecommended] = useState("");
+
   const { id } = useParams();
+
   useEffect(() => {
     fetchRestDetails();
-  });
+  }, []);
 
   const fetchRestDetails = async () => {
     const resp = await fetch(restDetailUrl + id);
@@ -21,23 +25,27 @@ const RestaurantDetails = () => {
     const json = await resp.json();
     setRestaurant(json?.data?.cards[0]?.card?.card?.text);
     setRestaurantCard(json?.data?.cards[2]?.card?.card?.info);
-
-    // console.log(
-    //   "card-data",
-    //   json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-    //     ?.card
-    // );
     setOffersCarousel(
       json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
     );
-
     setTopPicks(
       json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
         ?.card
     );
+    setRecommended(
+      json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+        ?.card
+    );
+
+    console.log(
+      "recommeded",
+      json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+        ?.card
+    );
   };
 
-  console.log("Top picks", topPicks?.carousel);
+  // console.log("Top picks", topPicks);
+  // console.log("Top picks", topPicks?.carousel?.[0]?.title);
 
   return (
     <div class="mx-72 mt-16">
@@ -66,9 +74,23 @@ const RestaurantDetails = () => {
         </div>
       </div>
 
-      <div>
+      <div class="pb-10">
         <h1 class="font-bold text-xl">{topPicks.title}</h1>
-        <div>{/* <p>{topPicks.carousel.title}</p> */}</div>
+        <div class="overflow-x-scroll scrollbar-hide mt-2 px-4">
+          <div class="flex space-x-4 min-w-max min-h-max mt-2">
+            {topPicks?.carousel?.length >= 0 &&
+              topPicks?.carousel?.map((topPic) => (
+                <TopPicks topPicks={topPic} />
+              ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="pb-10">
+        <h1 class="font-bold text-xl">{recommended?.title}</h1>
+        <div>
+          <h1>{recommended.itemCards[0]?.card?.info?.name}</h1>
+        </div>
       </div>
     </div>
   );
